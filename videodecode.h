@@ -12,7 +12,7 @@ public:
     ~VideoDecode();
     /*
      *
-     *return -1 when encount error,0 means normal,1means this function has called before
+     *return -1 when encount error,0 means normal,1 means this function has called before
      * */
     int start();
 

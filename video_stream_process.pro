@@ -30,33 +30,23 @@ HEADERS += \
     videodecode.h
 
 
-
-#unix:!macx: LIBS += -L/usr/local/ffmpeg/lib -lavformat \
-#    -lavutil \
-#    -lavfilter \
-#    -lavcodec \
-#    -lavdevice \
-#    -lswscale \
-#    -lswresample
-
-LIBS += -LF:/depends/ffmpeg/x64/lib -lavformat \
+LIBS += -L$(DEPENDS)/ffmpeg/x64/lib -lavformat \
      -lavutil \
      -lavfilter \
      -lavcodec \
      -lavdevice \
      -lswscale \
      -lswresample
-INCLUDEPATH += F:/depends/ffmpeg/x64/include
+
+INCLUDEPATH += $(DEPENDS)/ffmpeg/x64/include
 
 
-#INCLUDEPATH += /usr/local/include
-#DEPENDPATH += /usr/local/include
 
 #unix: CONFIG += link_pkgconfig
 #unix: PKGCONFIG += /usr/local/lib/pkgconfig/opencv.pc
 #unix:PKGCONFIG +=/usr/local/lib/pkgconfig/hiredis.pc
 
 
-INCLUDEPATH += F:/depends/pthreads-w32-2-9-1-release/Pre-built.2/include
-LIBS += -LF:/depends/pthreads-w32-2-9-1-release/Pre-built.2/lib/x64 -lpthreadVC2
+INCLUDEPATH += $(DEPENDS)/pthreads-w32-2-9-1-release/Pre-built.2/include
+LIBS += -L$(DEPENDS)/pthreads-w32-2-9-1-release/Pre-built.2/lib/x64 -lpthreadVC2
 

@@ -11,6 +11,7 @@ VideoDecode::VideoDecode(const char *videoPath):path(videoPath),decoder(NULL),ha
     vs->url=path;
 
 }
+
 VideoDecode::~VideoDecode()
 {
 
@@ -20,21 +21,10 @@ VideoDecode::~VideoDecode()
         delete decoder;
     }
 }
+
 void VideoDecode::stop()
 {
     vs->abort_request=true;
-}
-IplImage* VideoDecode::getPicture()
-{
-
-    IplImage *img=NULL;
-    int ret=vs->picture_queue->pop_front(img);
-    if(-1==ret)
-    {
-        return NULL;
-    }
-
-    return img;
 }
 
 int VideoDecode::start()
@@ -61,8 +51,19 @@ int VideoDecode::start()
     video_thread.detach();
     picture_thread.detach();
 
-
     return 0;
 
+}
 
+IplImage* VideoDecode::getPicture()
+{
+
+    IplImage *img=NULL;
+    int ret=vs->picture_queue->pop_front(img);
+    if(-1==ret)
+    {
+        return NULL;
+    }
+
+    return img;
 }

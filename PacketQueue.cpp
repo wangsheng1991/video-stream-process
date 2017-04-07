@@ -24,7 +24,6 @@ PacketQueue::~PacketQueue()
             av_packet_unref(pkt);
         }
     }
-
 }
 void PacketQueue::setStreamIndex(int index)
 {

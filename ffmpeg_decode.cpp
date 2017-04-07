@@ -15,7 +15,6 @@ Ffmpeg_decode::Ffmpeg_decode(string input) :file_name(input)
 
 }
 
-
 Ffmpeg_decode::~Ffmpeg_decode()
 {
 	avformat_network_deinit();
@@ -45,7 +44,7 @@ void Ffmpeg_decode::read_packet_thread(void *arg)
         {
 
             //wait 10 millseconds
-           av_usleep(10000);
+            av_usleep(10000);
             continue;
         }
 
@@ -85,10 +84,8 @@ void Ffmpeg_decode::video_thread(void *arg)
 			break;
 		}
 		ret=decoder_decode_frame(vs->codec_ctx, vs->pkt_queue, vs->frame_queue);
-
 		
 	}
-
 
 }
 
@@ -154,29 +151,27 @@ void Ffmpeg_decode::picture_thread(void *arg)
 	VideoState *vs = (VideoState*)arg;
 	int ret = -1;
     unsigned int index = 0;
-     redisContext *c=redisConnect("127.0.0.1",6379);
-     if(0!=c->err)
-     {
-         std::cerr<<"connect to redis server failed"<<std::endl;
-         vs->abort_request=true;
-     }
+    redisContext *c=redisConnect("127.0.0.1",6379);
+    if(0!=c->err)
+    {
+        std::cerr<<"connect to redis server failed"<<std::endl;
+        vs->abort_request=true;
+    }
 #ifdef GRAB_RGB24
-     struct SwsContext* imgCtx = NULL;
-     int width = vs->codec_ctx->width;
-     int height = vs->codec_ctx->height;
-     imgCtx = sws_getCachedContext(imgCtx,width, height, vs->codec_ctx->pix_fmt, width, height, AV_PIX_FMT_BGR24, SWS_BICUBIC, NULL, NULL, NULL);
+    struct SwsContext* imgCtx = NULL;
+    int width = vs->codec_ctx->width;
+    int height = vs->codec_ctx->height;
+    imgCtx = sws_getCachedContext(imgCtx,width, height, vs->codec_ctx->pix_fmt, width, height, AV_PIX_FMT_BGR24, SWS_BICUBIC, NULL, NULL, NULL);
 
-     AVFrame *pFrameBGR=NULL;
-     //uint8_t *bufferBGR=NULL;
-     pFrameBGR = av_frame_alloc();
+    AVFrame *pFrameBGR=NULL;
+    //uint8_t *bufferBGR=NULL;
+    pFrameBGR = av_frame_alloc();
 
-     IplImage *img = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
-     //bufferBGR = (uint8_t *)av_malloc(av_image_get_buffer_size(AV_PIX_FMT_BGR24, width, height, 1));
-     //av_image_fill_arrays(pFrameBGR->data, pFrameBGR->linesize, bufferBGR, AV_PIX_FMT_BGR24, width, height, 1);
+    IplImage *img = cvCreateImage(cvSize(width, height), IPL_DEPTH_8U, 3);
+    //bufferBGR = (uint8_t *)av_malloc(av_image_get_buffer_size(AV_PIX_FMT_BGR24, width, height, 1));
+    //av_image_fill_arrays(pFrameBGR->data, pFrameBGR->linesize, bufferBGR, AV_PIX_FMT_BGR24, width, height, 1);
     av_image_fill_arrays(pFrameBGR->data, pFrameBGR->linesize, (uint8_t *)img->imageData, AV_PIX_FMT_BGR24, width, height, 1);
 #endif
-
-
 
 	while (true)
 	{
@@ -241,27 +236,6 @@ int Ffmpeg_decode::save_picture(VideoState *vs,unsigned int &index,redisContext 
     }
     index=0;
     std::cerr<<"url:"<<vs->url<<std::endl;
-
-    //base64 encode
-//    std::string encoded;
-//    int input_len=frame->width*frame->height;
-//    encoded.resize(Base64::EncodedLength(input_len));
-//    if(!Base64::Encode((char *)frame->data[0],input_len,&encoded[0],encoded.length()))
-//    {
-//        std::cerr<<"failed to encode base64"<<std::endl;
-//        return -1;
-//    }
-
-
-   // IplImage *img = cvCreateImage(cvSize(frame->width, frame->height), IPL_DEPTH_8U, 1);
-
-    //cvReleaseImageData(img->imageData);
-
-    //img->imageData = (char *)frame->data[0];
-    //char img_name[255];
-    //snprintf(img_name, 255, "./image_%ld.jpg", index);
-    //cvSaveImage(img_name,img);
-    //cvReleaseImage(&img);
 
     string uuid=UtilTool::getUuid();
     string key=uuid+"_"+vs->url;

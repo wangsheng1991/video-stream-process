@@ -3,7 +3,7 @@ CONFIG += opencv3.0
 
 opencv2.4{
     OPENCV_VERSION = 2.4.11
-    OPENCV_PATH = E:/opencv/opencv2.4.11/build
+    OPENCV_PATH = $(DEPENDS)/opencv2.4.11/build
     OPENCV_LIB_PATH = $$OPENCV_PATH/x64/vc12/lib
 
     INCLUDEPATH += $$OPENCV_PATH/include
@@ -80,7 +80,7 @@ opencv2.4{
 
 opencv3.0{
     OPENCV_VERSION = 3.0.0
-    OPENCV_PATH = F:/depends/opencv3.0.0/opencv/build
+    OPENCV_PATH = $(DEPENDS)/opencv3.0.0/opencv/build
     OPENCV_LIB_PATH = $$OPENCV_PATH/x64/vc12/lib
 
     INCLUDEPATH += $$OPENCV_PATH/include

@@ -1,5 +1,9 @@
 #ifndef VIDEOSTATE_H 
 #define VIDEOSTATE_H
+/***
+* 定义一组视频流的状态信息，包括，线程队列、包队列、
+* 帧队列以及图片队列等
+*/
 #include "FrameQueue.h"
 #include "PacketQueue.h"
 #include "PictureQueue.h"

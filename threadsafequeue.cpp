@@ -4,11 +4,13 @@ template<typename T> ThreadSafeQueue<T>::ThreadSafeQueue(const int maxSize):queu
 {
 
 }
+
 template<typename T> ThreadSafeQueue<T>::ThreadSafeQueue(const ThreadSafeQueue &other):queue_max_size(other.queue_max_size)
 {
     std::lock_guard<std::mutex> lock(mut);
     data_queue=other.data_queue;
 }
+
 template<typename T> bool ThreadSafeQueue<T>::push(T value)
 {
     std::lock_guard<std::mutex> lock(mut);
@@ -30,11 +32,13 @@ template<typename T> void ThreadSafeQueue<T>::wait_and_pop(T &value)
     data_queue.pop();
 
 }
+
 template<typename T> int ThreadSafeQueue<T>::size() const
 {
     std::lock_guard<std::mutex> lock(mut);
     return data_queue.size();
 }
+
 template<typename T> bool ThreadSafeQueue<T>::empty() const
 {
     std::lock_guard<std::mutex> lock(mut);

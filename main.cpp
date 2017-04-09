@@ -33,6 +33,8 @@ int main(int argc, char *argv[])
         cvShowImage(img_name.toStdString().c_str(), img);
     }
 
+    //此处设置关闭信号：
+    video_decode->vs->abort_request = true;
 
     return 0;
 }

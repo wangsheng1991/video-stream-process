@@ -4,12 +4,12 @@
 FrameQueue::FrameQueue(const int &maxsize):queue_max_size(maxsize)
 {
 }
+
 FrameQueue::FrameQueue(const FrameQueue &other):queue_max_size(other.queue_max_size)
 {
 	std::lock_guard<std::mutex> lock(m);
 	frame_queue = other.frame_queue;
 }
-
 
 FrameQueue::~FrameQueue()
 {
@@ -24,12 +24,12 @@ FrameQueue::~FrameQueue()
         }
     }
 }
+
 void FrameQueue::push(AVFrame *frame)
 {
 	std::lock_guard<std::mutex> lock(m);
 	frame_queue.push(frame);
 }
-
 
 int FrameQueue::pop_front(AVFrame **frame)
 {
@@ -43,6 +43,7 @@ int FrameQueue::pop_front(AVFrame **frame)
 	frame_queue.pop();
 	return 0;
 }
+
 int FrameQueue::pop()
 {
     std::lock_guard<std::mutex> lock(m);

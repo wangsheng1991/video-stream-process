@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
+#include <stdio.h>
 #include "opencv/highgui.h"
 #include <list>
 #include <queue>
-#include <hiredis.h>
+//#include <hiredis.h>
 #include "videostate.h"
 extern "C"{
 #include "libavutil/imgutils.h"
@@ -32,7 +33,7 @@ public:
 	static int decoder_decode_frame(AVCodecContext *codecCtx,PacketQueue *pktQueue,FrameQueue *frameQueue);
 	static void video_thread(void *arg);
 	static void picture_thread(void *arg);
-    static int save_picture(VideoState *vs,unsigned int & index,redisContext *c);
+    //static int save_picture(VideoState *vs,unsigned int & index,redisContext *c);
 
 private:
 	const string file_name;

@@ -9,7 +9,7 @@ TEMPLATE = app
 
 include($$PWD/opencv_config.pri)
 
-SOURCES += main.cpp \
+SOURCES += \
     FrameQueue.cpp \
     PacketQueue.cpp \
     PictureQueue.cpp \
@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     utiltool.cpp \
     videostate.cpp \
     threadsafequeue.cpp \
-    videodecode.cpp
+    videodecode.cpp \
+    main.cpp
 
 HEADERS += \
     ffmpeg_decode.h \

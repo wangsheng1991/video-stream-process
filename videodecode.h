@@ -24,9 +24,10 @@ public:
     IplImage* getPicture();
 
 
-private:
-    const std::string path;
+public:
     VideoState *vs;
+private:
+    const std::string path;   
     Ffmpeg_decode *decoder;
     bool hasStarted;
 };

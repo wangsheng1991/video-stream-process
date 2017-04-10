@@ -35,14 +35,16 @@ void PictureQueue::push(IplImage *pic)
 
 }
 
-int PictureQueue::pop_front(IplImage *pic)
+int PictureQueue::pop_front(IplImage **pic)
 {
     std::lock_guard<std::mutex> lock(m);
-	if (0==picture_queue.size())
-	{
-		return -1; 
-	}
-	pic = picture_queue.front();
+//    std::unique_lock<std::mutex> lock(m);
+//    data_cond.wait(lock, [this]{return !picture_queue.empty();});
+    if (0==picture_queue.size())
+    {
+        return -1;
+    }
+    *pic = picture_queue.front();
 	picture_queue.pop();
 
 	return 0;

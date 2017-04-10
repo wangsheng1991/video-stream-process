@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include <mutex>
+#include <condition_variable>
 #include "opencv2/opencv.hpp"
 using std::queue;
 class PictureQueue
@@ -14,11 +15,12 @@ public:
     PictureQueue(const PictureQueue &other);
     PictureQueue& operator=(const PictureQueue &)=delete;
 	void push(IplImage *pic);
-	int pop_front(IplImage *pic);
+    int pop_front(IplImage **pic);
 	IplImage* front();
     int size();
 private:
 	queue<IplImage*> picture_queue;
     mutable std::mutex m;
+    std::condition_variable data_cond;
 };
 

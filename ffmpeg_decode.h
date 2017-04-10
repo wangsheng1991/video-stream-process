@@ -4,7 +4,6 @@
 #include "opencv/highgui.h"
 #include <list>
 #include <queue>
-//#include <hiredis.h>
 #include "videostate.h"
 extern "C"{
 #include "libavutil/imgutils.h"
